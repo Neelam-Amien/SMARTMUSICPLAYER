@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    app:cardElevation="3dp"
+    android:background="#eee"
+    android:layout_margin="3sp"
+    android:id="@+id/parent_layout"
+    android:layout_height="60sp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="60sp"
+            android:padding="6sp"
+            android:src="@drawable/musicsign"
+            android:layout_height="match_parent"
+            android:id="@+id/img"
+            />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5sp"
+        android:singleLine="true"
+        android:text="song name"
+        android:layout_toRightOf="@+id/img"
+        android:layout_toLeftOf="@+id/more"
+        android:textSize="15sp"
+        android:padding="15sp"
+       android:layout_centerHorizontal="true"
+        android:id="@+id/snam"
+        />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/more_icone"
+        android:id="@+id/more"
+        android:paddingRight="20sp"
+        android:onClick="more"
+        />
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>
