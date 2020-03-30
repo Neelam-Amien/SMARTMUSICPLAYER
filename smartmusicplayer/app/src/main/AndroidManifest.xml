@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:dist="http://schemas.android.com/apk/distribution"
     package="com.example.smartmusicplayer">
-
-    <dist:module dist:instant="true" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -15,18 +12,35 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/mu"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/mu"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".facedetection.StillImageActivity"
-            android:exported="true">
+        <activity android:name=".feedback"></activity>
+        <activity android:name=".Home" />
+        <activity
+            android:name=".facedetection.StillImageActivity"
+            android:exported="true" />
+        <activity android:name=".facedetection.LivePreviewActivity" />
+        <activity android:name=".Sad_Mode">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Home" />
         </activity>
-        <activity android:name=".facedetection.LivePreviewActivity"></activity>
-        <activity android:name="com.example.smartmusicplayer.playMusic"></activity>
-        <activity android:name="com.example.smartmusicplayer.MainActivity" />
-        <activity android:name="com.example.smartmusicplayer.splash">
+        <activity android:name=".Happy_Mode">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Home" />
+        </activity>
+        <activity android:name=".PlayMusic">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Home" />
+        </activity>
+        <activity
+            android:name=".Splash"
+            android:theme="@style/noAction">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

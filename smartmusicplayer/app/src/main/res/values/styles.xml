@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -6,6 +6,17 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:popupMenuStyle">@style/PopupMenu</item>
+    </style>
+
+    <style name="PopupMenu" parent="@android:style/Widget.PopupMenu">
+        <item name="android:colorPrimary" tools:targetApi="lollipop">#fff</item>
+        <item name="android:popupBackground">@android:color/white</item>
+    </style>
+    <style name="noAction" parent="Theme.AppCompat.Light.NoActionBar">
+
+        <item name="colorPrimary">#fff</item>
+
     </style>
 
 </resources>

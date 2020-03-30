@@ -64,9 +64,9 @@ public final class LivePreviewActivity extends AppCompatActivity
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    Log.d(TAG, "onCreate");
 
     setContentView(R.layout.activity_live_preview);
+    setTitle("Face detecting");
 
     preview = (CameraSourcePreview) findViewById(R.id.firePreview);
     if (preview == null) {
@@ -100,7 +100,9 @@ public final class LivePreviewActivity extends AppCompatActivity
     } else {
       getRuntimePermissions();
     }
+    cameraSource.setFacing(CameraSource.CAMERA_FACING_FRONT);
   }
+
 
   @Override
   public synchronized void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
@@ -127,9 +129,10 @@ public final class LivePreviewActivity extends AppCompatActivity
     Log.d(TAG, "Set facing");
     if (cameraSource != null) {
       if (isChecked) {
-        cameraSource.setFacing(CameraSource.CAMERA_FACING_FRONT);
-      } else {
         cameraSource.setFacing(CameraSource.CAMERA_FACING_BACK);
+
+      } else {
+        cameraSource.setFacing(CameraSource.CAMERA_FACING_FRONT);
       }
     }
     preview.stop();
@@ -207,6 +210,7 @@ public final class LivePreviewActivity extends AppCompatActivity
   protected void onPause() {
     super.onPause();
     preview.stop();
+    finish();
   }
 
   @Override

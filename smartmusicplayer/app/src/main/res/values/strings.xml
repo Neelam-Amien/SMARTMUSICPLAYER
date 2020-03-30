@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">smart music player</string>
+    <string name="app_name">Smart Music Player</string>
+
+
+    <string-array name="Mode">
+        <item>Happy</item>
+        <item>Sad</item>
+
+    </string-array>
 </resources>

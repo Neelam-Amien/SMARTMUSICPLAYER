@@ -1,5 +1,7 @@
 package com.example.smartmusicplayer;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.PorterDuff;
@@ -7,16 +9,15 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import java.io.File;
 import java.util.ArrayList;
 
-public class playMusic extends AppCompatActivity {
+public class PlayMusic extends AppCompatActivity {
 
 
     static MediaPlayer mediaPlayer;
@@ -41,20 +42,22 @@ public class playMusic extends AppCompatActivity {
         updateseekbar=new Thread(){
             @Override
             public void run() {
-                int totalDuration=mediaPlayer.getDuration();
-                int currentPosition=0;
 
-                while (currentPosition<totalDuration){
-                    try{
+                    int totalDuration=mediaPlayer.getDuration();
 
-                        sleep(500);
-                        currentPosition=mediaPlayer.getCurrentPosition();
-                        seekBar.setProgress(currentPosition);
-                    }
-                    catch (InterruptedException e){
-                        e.printStackTrace();
-                    }
-                }
+           int currentPosition=0;
+
+           while (currentPosition<totalDuration){
+               try{
+
+                   sleep(500);
+                   currentPosition=mediaPlayer.getCurrentPosition();
+                   seekBar.setProgress(currentPosition);
+               }
+               catch (InterruptedException e){
+                   e.printStackTrace();
+               }
+           }
             }
         };
 
@@ -66,7 +69,7 @@ public class playMusic extends AppCompatActivity {
         Intent intent=getIntent();
         Bundle bundle=intent.getExtras();
         mysongs=(ArrayList) bundle.getParcelableArrayList("songs");
-        sname=mysongs.get(position).getName().toString();
+        sname=mysongs.get(position).getName();
 
         String songnamee=intent.getStringExtra("songname");
         songname.setText(songnamee);
@@ -74,11 +77,14 @@ public class playMusic extends AppCompatActivity {
 
         position=bundle.getInt("pos",0);
 
-        Uri uri=Uri.parse(mysongs.get(position).toString());
-        mediaPlayer=MediaPlayer.create(getApplicationContext(),uri);
-        mediaPlayer.start();
+            Uri uri=Uri.parse(mysongs.get(position).toString());
+            mediaPlayer=MediaPlayer.create(getApplicationContext(),uri);
+            mediaPlayer.start();
 
-        seekBar.setMax(mediaPlayer.getDuration());
+
+        if(mediaPlayer!=null){
+            seekBar.setMax(mediaPlayer.getDuration());
+        }
 
         updateseekbar.start();
         seekBar.getProgressDrawable().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.MULTIPLY);
@@ -101,12 +107,13 @@ public class playMusic extends AppCompatActivity {
             }
         });
 
-
         pauseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 seekBar.setMax(mediaPlayer.getDuration());
                 if(mediaPlayer.isPlaying()){
+                    pauseBtn.setImageResource(0);
+                    pauseBtn.setBackgroundResource(0);
                     pauseBtn.setBackgroundResource(R.drawable.play_icone);
                     mediaPlayer.pause();
                 }

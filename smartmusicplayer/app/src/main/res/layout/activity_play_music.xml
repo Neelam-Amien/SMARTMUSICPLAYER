@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#2874A6"
-    tools:context=".playMusic">
+    tools:context=".PlayMusic">
 
 
     <LinearLayout
@@ -53,7 +53,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginLeft="20sp"
+           android:layout_marginLeft="20sp"
             android:layout_marginRight="20sp"
             android:id="@+id/seekbar"
             />

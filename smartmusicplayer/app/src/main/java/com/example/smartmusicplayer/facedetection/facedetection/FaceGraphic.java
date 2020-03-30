@@ -14,13 +14,22 @@
 
 package com.example.smartmusicplayer.facedetection.facedetection;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-
+import android.os.Bundle;
+import android.os.Handler;
+import android.widget.Toast;
+import com.example.smartmusicplayer.Happy_Mode;
+import com.example.smartmusicplayer.Sad_Mode;
 import com.example.smartmusicplayer.facedetection.CameraSource;
 import com.example.smartmusicplayer.facedetection.GraphicOverlay;
 import com.google.firebase.ml.vision.face.FirebaseVisionFace;
+
+import java.io.File;
+import java.util.ArrayList;
 
 /**
  * Graphic instance for rendering face position, orientation, and landmarks within an associated
@@ -32,7 +41,8 @@ public class FaceGraphic extends GraphicOverlay.Graphic {
   private static final float ID_Y_OFFSET = 50.0f;
   private static final float ID_X_OFFSET = -50.0f;
   private static final float BOX_STROKE_WIDTH = 5.0f;
-
+  private Context context;
+  private int i=1,j=1;
   private static final int[] COLOR_CHOICES = {
     Color.BLUE //, Color.CYAN, Color.GREEN, Color.MAGENTA, Color.RED, Color.WHITE, Color.YELLOW
   };
@@ -49,6 +59,8 @@ public class FaceGraphic extends GraphicOverlay.Graphic {
   public FaceGraphic(GraphicOverlay overlay) {
     super(overlay);
 
+    context=getApplicationContext();
+
     currentColorIndex = (currentColorIndex + 1) % COLOR_CHOICES.length;
     final int selectedColor = COLOR_CHOICES[currentColorIndex];
 
@@ -63,6 +75,7 @@ public class FaceGraphic extends GraphicOverlay.Graphic {
     boxPaint.setColor(selectedColor);
     boxPaint.setStyle(Paint.Style.STROKE);
     boxPaint.setStrokeWidth(BOX_STROKE_WIDTH);
+
   }
 
   /**
@@ -93,6 +106,7 @@ public class FaceGraphic extends GraphicOverlay.Graphic {
         x + ID_X_OFFSET * 3,
         y - ID_Y_OFFSET,
         idPaint);
+
     if (facing == CameraSource.CAMERA_FACING_FRONT) {
       canvas.drawText(
           "right eye: " + String.format("%.2f", face.getRightEyeOpenProbability()),
@@ -125,5 +139,44 @@ public class FaceGraphic extends GraphicOverlay.Graphic {
     float right = x + xOffset;
     float bottom = y + yOffset;
     canvas.drawRect(left, top, right, bottom, boxPaint);
+    getMsg();
+  }
+
+  private void getMsg(){
+    final FirebaseVisionFace face = firebaseVisionFace;
+
+
+    if (face == null) {
+      return;
+    }
+    else{
+
+        float happy=face.getSmilingProbability();
+        if(happy>0.15){
+            if(i==1){
+//                i++;
+//                Intent intent=new Intent(context, Happy_Mode.class);
+//                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                intent.putExtra("key","face");
+//                context.startActivity(intent);
+            }
+            Toast.makeText(getApplicationContext(),"Happy Mode Activated",Toast.LENGTH_SHORT).show();
+        }
+        else{
+            if(j==1){
+                j++;
+//                Intent intent=new Intent(context, Sad_Mode.class);
+//                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                intent.putExtra("key","face");
+//                context.startActivity(intent);
+            }
+            Toast.makeText(getApplicationContext(),"Sad Mode Activated",Toast.LENGTH_SHORT).show();
+        }
+
+    }
   }
 }
